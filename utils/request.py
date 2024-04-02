@@ -9,6 +9,8 @@ from typing import *
 import aiohttp
 
 import config
+config.init()
+cfg = config.get_config()
 
 logger = logging.getLogger(__name__)
 
@@ -24,8 +26,7 @@ http_session: Optional[aiohttp.ClientSession] = None
 
 
 def load_bilibili_cookies():
-    config.init()
-    cfg = config.get_config()
+    
     cookies = http.cookies.SimpleCookie()
     if cfg.bilibili_cookies_file:
         cookies_fn = os.path.join(config.BASE_PATH, cfg.bilibili_cookies_file)
