@@ -30,7 +30,7 @@ def load_bilibili_cookies():
     cookies = http.cookies.SimpleCookie()
     #if cfg.bilibili_cookies_file:
     #cookies_fn = os.path.join(config.BASE_PATH, cfg.bilibili_cookies_file)
-    cookies_fn = '/data/cookies.txt'
+    cookies_fn = '/mnt/data/cookies.txt'
     try:
         with open(cookies_fn, 'rt') as f:
             cookies.load(f.read())
