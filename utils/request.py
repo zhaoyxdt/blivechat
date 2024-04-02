@@ -8,9 +8,9 @@ from typing import *
 
 import aiohttp
 
-import config
-config.init()
-cfg = config.get_config()
+#import config
+#config.init()
+#cfg = config.get_config()
 
 logger = logging.getLogger(__name__)
 
@@ -28,19 +28,20 @@ http_session: Optional[aiohttp.ClientSession] = None
 def load_bilibili_cookies():
     
     cookies = http.cookies.SimpleCookie()
-    if cfg.bilibili_cookies_file:
-        cookies_fn = os.path.join(config.BASE_PATH, cfg.bilibili_cookies_file)
-        try:
-            with open(cookies_fn, 'rt') as f:
-                cookies.load(f.read())
-            for cookie in cookies.values():
-                cookie['domain'] = cookie['domain'] or '.bilibili.com'
-        except FileNotFoundError:
-            logger.warning("Cookies file not found, check if config is correct")
-        for key in ['SESSDATA', 'bili_jct']:
-            if key not in cookies:
-                logger.warning("Missing necessary cookie entries, please check cookie file content and format")
-                break
+    #if cfg.bilibili_cookies_file:
+    #cookies_fn = os.path.join(config.BASE_PATH, cfg.bilibili_cookies_file)
+    cookies_fn = '/data/cookies.txt'
+    try:
+        with open(cookies_fn, 'rt') as f:
+            cookies.load(f.read())
+        for cookie in cookies.values():
+            cookie['domain'] = cookie['domain'] or '.bilibili.com'
+    except FileNotFoundError:
+        logger.warning("Cookies file not found, check if config is correct")
+    for key in ['SESSDATA', 'bili_jct']:
+        if key not in cookies:
+            logger.warning("Missing necessary cookie entries, please check cookie file content and format")
+            break
     return cookies
 
 def init():
